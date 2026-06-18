@@ -8,26 +8,25 @@ export interface ApplicationAttributes {
   status: 'Applied' | 'Interviewing' | 'Offer' | 'Rejected';
   applied_date: Date;
   notes?: string;
-  created_at?: Date;
-  updated_at?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ApplicationCreationAttributes
-  extends Optional<ApplicationAttributes, 'id' | 'created_at' | 'updated_at'> {}
+  extends Optional<ApplicationAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
 
-export class Application extends Model,
-  ApplicationAttributes,
-  ApplicationCreationAttributes
- implements ApplicationAttributes {
-  public id!: number;
-  public company_name!: string;
-  public job_title!: string;
-  public job_type!: 'Internship' | 'Full-time' | 'Part-time';
-  public status!: 'Applied' | 'Interviewing' | 'Offer' | 'Rejected';
-  public applied_date!: Date;
-  public notes?: string;
-  public created_at?: Date;
-  public updated_at?: Date;
+export class Application
+  extends Model<ApplicationAttributes, ApplicationCreationAttributes>
+  implements ApplicationAttributes {
+  declare id: number;
+  declare company_name: string;
+  declare job_title: string;
+  declare job_type: 'Internship' | 'Full-time' | 'Part-time';
+  declare status: 'Applied' | 'Interviewing' | 'Offer' | 'Rejected';
+  declare applied_date: Date;
+  declare notes?: string;
+  declare createdAt?: Date;
+  declare updatedAt?: Date;
 }
 
 export const initApplicationModel = (sequelize: Sequelize): typeof Application => {
@@ -37,18 +36,22 @@ export const initApplicationModel = (sequelize: Sequelize): typeof Application =
       company_name: { type: DataTypes.STRING, allowNull: false },
       job_title: { type: DataTypes.STRING, allowNull: false },
       job_type: { type: DataTypes.ENUM('Internship', 'Full-time', 'Part-time'), allowNull: false },
-      status: { type: DataTypes.ENUM('Applied', 'Interviewing', 'Offer', 'Rejected'), allowNull: false, defaultValue: 'Applied' },
+      status: {
+        type: DataTypes.ENUM('Applied', 'Interviewing', 'Offer', 'Rejected'),
+        allowNull: false,
+        defaultValue: 'Applied',
+      },
       applied_date: { type: DataTypes.DATE, allowNull: false },
       notes: { type: DataTypes.TEXT, allowNull: true },
-      created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-      updated_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+      createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+      updatedAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     },
     {
       sequelize,
       tableName: 'applications',
       timestamps: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt',
     }
   );
 

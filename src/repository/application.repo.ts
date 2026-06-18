@@ -8,6 +8,9 @@ class ApplicationRepo extends CrudRepo<Application> {
     super(Application)
   }
 
+  
+
 }
 
-export default ApplicationRepo; 
+const applicationRepo = new ApplicationRepo();
+export default applicationRepo; 

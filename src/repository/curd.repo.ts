@@ -7,8 +7,24 @@ class CrudRepo<T extends Model> {
     this.model = model;
   }
 
+  async getAll(page: number = 1, limit: number = 10): Promise<{ rows: T[], count: number }> {
+    try {
+        const offset = (page - 1) * limit;
+        const res = await this.model.findAndCountAll({
+            limit,
+            offset,
+            order: [['createdAt', 'DESC']],
+        });
+        return res;
+    } catch (error) {
+        console.error("Something went wrong in Repo level (getAll)", error);
+        throw error;
+    }
+}
+
   async create(data: CreationAttributes<T>): Promise<T> {
     try {
+      console.log("data => ", data)
       const res = await this.model.create(data);
       return res;
     } catch (error) {
@@ -17,17 +33,21 @@ class CrudRepo<T extends Model> {
     }
   }
 
-  async update(id: number, data: Partial<CreationAttributes<T>>): Promise<[number]> {
+  async update(id: number, data: Partial<CreationAttributes<T>>): Promise<T | null> {
     try {
-      const res = await this.model.update(data as any, {
-        where: { id } as UpdateOptions["where"],
-      });
-      return res;
+        const [affectedCount, updatedRows] = await this.model.update(data as any, {
+            where: { id } as UpdateOptions["where"],
+            returning: true,  
+        });
+
+        if (affectedCount === 0) return null;
+
+        return updatedRows[0];  
     } catch (error) {
-      console.log("Something went wrong in Repo level (update)");
-      throw error;
+        console.error("Something went wrong in Repo level (update)");
+        throw error;
     }
-  }
+}
 
   async delete(id: number): Promise<number> {
     try {
@@ -42,7 +62,7 @@ class CrudRepo<T extends Model> {
     }
   }
 
-  async getAll(): Promise<T[]> {
+  async getAllWithOutPagination(): Promise<T[]> {
     try {
       const res = await this.model.findAll();
       return res;
