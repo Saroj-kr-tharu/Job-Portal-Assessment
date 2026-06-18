@@ -1,18 +1,8 @@
-// const path = require('path');
-
-// module.exports = {
-//     seedersPath: path.resolve('./src/db/seeders'),
-//     modelsPath: path.resolve('./src/db/models'),
-//     migrationsPath: path.resolve('./src/db/migrations'),
-//     config: path.resolve('./src/config/sequelize.config.js'),
-// }
-
-// .sequelizerc
 const path = require('path');
 
 module.exports = {
-   'config': path.resolve('./dist/config/db.config.js'),
-    'seeders-path': path.resolve('./src/db/seeders'),      // ✅ kebab-case
-    'models-path': path.resolve('./src/db/models'),        // ✅ kebab-case
-    'migrations-path': path.resolve('./src/db/migrations'), // ✅ kebab-case
+    'config':          path.resolve('./dist/config/db.config.js'),
+    'models-path':     path.resolve('./dist/models'),
+    'migrations-path': path.resolve('./dist/db/migrations'),
+    'seeders-path':    path.resolve('./dist/db/seeders'),
 };
