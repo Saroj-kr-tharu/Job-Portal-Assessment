@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize';
 import { Application, initApplicationModel } from './models/index';
 
-const env = process.env.NODE_ENV || 'development';
 
 const sequelize = new Sequelize(
   process.env.DB_NAME!,

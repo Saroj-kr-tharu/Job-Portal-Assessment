@@ -1,4 +1,4 @@
-import { CreationAttributes, Model, ModelStatic, UpdateOptions } from "sequelize";
+import { CreationAttributes, Model, ModelStatic, Op, UpdateOptions, WhereOptions } from 'sequelize';
 
 class CrudRepo<T extends Model> {
   private model: ModelStatic<T>;
@@ -7,20 +7,6 @@ class CrudRepo<T extends Model> {
     this.model = model;
   }
 
-  async getAll(page: number = 1, limit: number = 10): Promise<{ rows: T[], count: number }> {
-    try {
-        const offset = (page - 1) * limit;
-        const res = await this.model.findAndCountAll({
-            limit,
-            offset,
-            order: [['createdAt', 'DESC']],
-        });
-        return res;
-    } catch (error) {
-        console.error("Something went wrong in Repo level (getAll)", error);
-        throw error;
-    }
-}
 
   async create(data: CreationAttributes<T>): Promise<T> {
     try {
@@ -32,6 +18,40 @@ class CrudRepo<T extends Model> {
       throw error;
     }
   }
+
+
+async getAll(
+    page: number = 1,
+    limit: number = 10,
+    filters: { status?: string; search?: string } = {}
+): Promise<{ rows: T[], count: number }> {
+    try {
+        const offset = (page - 1) * limit;
+        const where: WhereOptions = {};
+
+        if (filters.status) {
+            where['status'] = filters.status;
+        }
+
+        if (filters.search) {
+            where[Op.or as any] = [
+                { company_name: { [Op.iLike]: `%${filters.search}%` } },
+                { job_title: { [Op.iLike]: `%${filters.search}%` } },
+            ];
+        }
+
+        const res = await this.model.findAndCountAll({
+            where,
+            limit,
+            offset,
+            order: [['createdAt', 'DESC']],
+        });
+        return res;
+    } catch (error) {
+        console.error("Something went wrong in Repo level (getAll)", error);
+        throw error;
+    }
+}
 
   async update(id: number, data: Partial<CreationAttributes<T>>): Promise<T | null> {
     try {

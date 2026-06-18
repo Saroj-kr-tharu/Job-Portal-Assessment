@@ -22,12 +22,10 @@ export type CreateApplicationInput = z.infer<typeof createApplication>;
 export const getAllApplication = z.object({
     page: z.coerce.number().int().positive().default(1),
     limit: z.coerce.number().int().positive().max(100).default(10),
-    
-    // optional filters
-    job_type: z.enum(["Internship", "Full-time", "Part-time"]).optional(),
     status: z.enum(["Applied", "Interviewing", "Offer", "Rejected"]).optional(),
-    company_name: z.string().optional(),
+    search: z.string().optional(),  
 });
+
 
 export type GetAllApplicationQuery = z.infer<typeof getAllApplication>;
 

@@ -1,0 +1,44 @@
+networks:
+  JobPortal_net:
+    name: JobPortal_net
+    driver: bridge
+
+volumes:
+  postgres_db_vol:
+
+services:
+  postgres_service:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: unless-stopped
+    networks:
+      - JobPortal_net
+    env_file:
+      - ./envirnoment/.env.postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_db_vol:/var/lib/postgresql 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend_service:
+    build:
+      context: ./Backend
+      dockerfile: dockerfile
+    container_name: backend_service
+    env_file:
+      - ./envirnoment/.env.backend
+    networks:
+      - JobPortal_net
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres_service:
+        condition: service_healthy
+   
+    
+    restart: unless-stopped

@@ -42,15 +42,19 @@ class CrudService<T extends Model> {
 
     
 
-    async getAllService(page: number = 1, limit: number = 10): Promise<{ rows: T[], count: number }> {
-    try {
-        const res = await this.repo.getAll(page, limit);
-        return res;
-    } catch (error) {
-        console.error("Something went wrong in service level (getAll)", error);
-        throw error;
+    async getAllService(
+        page: number = 1,
+        limit: number = 10,
+        filters: { status?: string; search?: string } = {}
+    ): Promise<{ rows: T[], count: number }> {
+        try {
+            const res = await this.repo.getAll(page, limit, filters);
+            return res;
+        } catch (error) {
+            console.error("Something went wrong in service level (getAll)", error);
+            throw error;
+        }
     }
-}
 
     async getByIdService(id: number): Promise<T | null> {
         try {

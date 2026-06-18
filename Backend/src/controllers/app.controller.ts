@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import applicationSVC from "../service/application.service";
+import { GetAllApplicationQuery } from "../validators/application.validator";
 
 export const pingHandler = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Pong!" });
@@ -19,10 +20,13 @@ export const appCreate = async (req: Request, res: Response) => {
 
 export const appList = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const page = parseInt(req.query.page as string) || 1;
-        const limit = parseInt(req.query.limit as string) || 10;
+        const { page, limit, status, search } = req.query as unknown as GetAllApplicationQuery;
 
-        const { rows, count } = await applicationSVC.getAllService(page, limit);
+        const { rows, count } = await applicationSVC.getAllService(
+            page,
+            limit,
+            { status, search }
+        );
 
         res.status(200).json({
             success: true,
