@@ -52,13 +52,11 @@ services:
       context: ./Fortend
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: ${VITE_API_URL}
+        VITE_API_URL: /api/v1 
     container_name: frontend_service
     restart: unless-stopped
     ports:
       - "80:80"
-    env_file:
-      - ./envirnoment/.env.fortend
     depends_on:
       - backend_service
     networks:

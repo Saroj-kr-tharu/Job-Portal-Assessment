@@ -4,6 +4,7 @@ import type { Application, ApplicationFormData } from "../types";
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL ,
 });
+console.log("API URL:", import.meta.env.VITE_API_URL);
 
 export interface GetApplicationsParams {
   status?: string;
