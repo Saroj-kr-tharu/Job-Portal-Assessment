@@ -8,7 +8,7 @@
 
 ---
 
-## 📺 Demo
+## 📺 Demo Video Click To View
 
 [![Demo Video](https://img.youtube.com/vi/lQVYiw6qSM8/maxresdefault.jpg)](https://youtu.be/lQVYiw6qSM8)
 
