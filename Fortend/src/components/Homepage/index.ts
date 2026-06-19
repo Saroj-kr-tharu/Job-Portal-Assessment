@@ -1,0 +1,9 @@
+export { default as HeroSection } from "./HeroSection";
+export { default as StatsStrip } from "./StatsStrip";
+export { default as TrustBar } from "./TrustBar";
+export { default as HowItWorks } from "./HowItWorks";
+export { default as FeaturesGrid } from "./FeaturesGrid";
+export { default as JobTypeShowcase } from "./JobTypeShowcase";
+export { default as Testimonials } from "./Testimonials";
+export { default as CTABanner } from "./CTABanner";
+export { default as SectionDivider } from "./SectionDivider";

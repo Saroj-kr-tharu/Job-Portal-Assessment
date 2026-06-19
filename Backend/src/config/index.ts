@@ -2,7 +2,8 @@
 import dotenv from 'dotenv';
 
 type ServerConfig = {
-    PORT: number
+    PORT: number,
+    FORTEND_URL: string
 }
 
 type DBConfig = {
@@ -20,7 +21,8 @@ function loadEnv() {
 loadEnv();
 
 export const serverConfig: ServerConfig = {
-    PORT: Number(process.env.PORT) || 3001
+    PORT: Number(process.env.PORT) || 3001,
+    FORTEND_URL: String(process.env.FORTEND_URL) || 'http://localhost:5173/'
 };
 
 export const dbConfig: DBConfig = {

@@ -41,7 +41,7 @@ services:
         condition: service_healthy
     command: >
       sh -c "
-         npx sequelize-cli db:migrate --env development || true && 
+        npx sequelize-cli db:migrate --env development || true && 
         npx sequelize-cli db:seed:all --env development || true &&
         npm start
       "

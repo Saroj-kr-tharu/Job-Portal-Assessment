@@ -1,0 +1,12 @@
+import { z } from "zod";
+
+export const applicationSchema = z.object({
+  company_name: z.string().min(2, "Company name must be at least 2 characters"),
+  job_title: z.string().min(1, "Job title is required"),
+  job_type: z.enum(["Internship", "Full-time", "Part-time"]),
+  status: z.enum(["Applied", "Interviewing", "Offer", "Rejected"]),
+  applied_date: z.string().min(1, "Applied date is required"),
+  notes: z.string().optional(),
+});
+
+export type ApplicationSchema = z.infer<typeof applicationSchema>;

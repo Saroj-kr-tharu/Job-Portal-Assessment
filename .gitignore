@@ -4,3 +4,7 @@ Backend/.env
 Backend/logs/
 
 envirnoment
+
+Fortend/.env
+Fortend/node_modules/
+Fortend/dist/
