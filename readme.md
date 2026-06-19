@@ -30,24 +30,74 @@ Key highlights:
 
 ---
 
-## 🛠️ Tech Stack
+## 📸 Screenshots
 
-| Layer     | Technology                                      |
-|-----------|-------------------------------------------------|
-| Frontend  | React 18, TypeScript, Vite                      |
-| Styling   | Tailwind CSS v3, DaisyUI v4                     |
-| State     | TanStack Query (React Query v5)                 |
-| Forms     | React Hook Form + Zod                           |
-| HTTP      | Axios                                           |
-| Backend   | Node.js, Express, TypeScript                    |
-| ORM       | Sequelize                                       |
-| Database  | PostgreSQL                                      |
-| Container | Docker, Docker Compose                          |
+### 🏠 Home / Application List
+
+| | |
+|---|---|
+| ![Home 1](screenshot/home%201%20.jpg) | ![Home 2](screenshot/home%202%20.jpg) |
+| ![Home 3](screenshot/home%203%20.jpg) | ![Home 4](screenshot/home%204%20.jpg) |
+
+![Home 5](screenshot/home%205.jpg)
 
 ---
 
+### 📋 Tracker Views
 
+| | |
+|---|---|
+| ![Tracker 1](screenshot/tracker%201.jpg) | ![Tracker 2](screenshot/tracker%202%20.jpg) |
+| ![Tracker 3](screenshot/tracker%203.jpg) | ![Tracker 4](screenshot/tracker%204.jpg) |
 
+![Tracker 5](screenshot/tracker%205.jpg)
+
+---
+
+### ➕ Add Application
+
+![Add](screenshot/add1.jpg)
+
+---
+
+### ✏️ Edit Application
+
+![Edit](screenshot/edit%201.jpg)
+
+---
+
+### 🗑️ Delete Application
+
+![Delete](screenshot/delete%201.jpg)
+
+---
+
+### 🔍 Search
+
+![Search](screenshot/search%201.jpg)
+
+---
+
+### 👁️ View Drawer
+
+![View](screenshot/view%201.jpg)
+
+---
+
+### 🔌 API — Postman
+
+| | |
+|---|---|
+| ![Postman 1](screenshot/postman%201.jpg) | ![Postman 2](screenshot/postman%202.jpg) |
+| ![Postman 3](screenshot/postman%203.jpg) | ![Postman 4](screenshot/postman%204.jpg) |
+
+![Postman 5](screenshot/postman%205.jpg)
+
+---
+
+### 🐳 Docker
+
+![Docker](screenshot/Docker%201.jpg)
 ---
 
 ## ✅ Prerequisites
@@ -121,6 +171,92 @@ docker compose down
 
 ```bash
 docker compose down -v
+```
+
+---
+
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer     | Technology                                      |
+|-----------|-------------------------------------------------|
+| Frontend  | React 18, TypeScript, Vite                      |
+| Styling   | Tailwind CSS v3, DaisyUI v4                     |
+| State     | TanStack Query (React Query v5)                 |
+| Forms     | React Hook Form + Zod                           |
+| HTTP      | Axios                                           |
+| Backend   | Node.js, Express, TypeScript                    |
+| ORM       | Sequelize                                       |
+| Database  | PostgreSQL                                      |
+| Container | Docker, Docker Compose                          |
+
+---
+
+## 📁 Project Structure
+
+```
+internsathi/
+├── Backend/                        # Express REST API (TypeScript)
+│   ├── src/
+│   │   ├── config/
+│   │   │   ├── db.config.ts        # Sequelize connection config
+│   │   │   ├── index.ts            # Environment variable exports
+│   │   │   ├── logger.config.ts    # Winston logger setup
+│   │   │   └── sequelize.config.js # Sequelize CLI config
+│   │   ├── controllers/
+│   │   │   └── app.controller.ts   # Request handlers (CRUD)
+│   │   ├── db/
+│   │   │   ├── index.ts            # Sequelize instance + sync
+│   │   │   ├── migrations/         # Sequelize migration files
+│   │   │   ├── models/             # Sequelize model definitions
+│   │   │   └── seeders/            # Database seed files
+│   │   ├── middlewares/
+│   │   │   └── error.middleware.ts # Global error handler
+│   │   ├── repository/
+│   │   │   ├── application.repo.ts # Application-specific DB queries
+│   │   │   └── curd.repo.ts        # Generic CRUD repository
+│   │   ├── routers/
+│   │   │   └── v1/
+│   │   │       ├── application.router.ts  # /applications routes
+│   │   │       └── index.router.ts        # Mounts v1 routes
+│   │   ├── service/
+│   │   │   ├── application.service.ts     # Application business logic
+│   │   │   └── curd.service.ts            # Generic CRUD service
+│   │   ├── utils/
+│   │   │   ├── errors/
+│   │   │   │   └── app.error.ts    # Custom AppError class
+│   │   │   └── helpers/            # Utility helper functions
+│   │   ├── validators/
+│   │   │   ├── application.validator.ts   # Application schema rules
+│   │   │   ├── index.ts            # Validator middleware runner
+│   │   │   └── ping.validator.ts   # Health check validator
+│   │   └── server.ts               # Express app entry point
+│   ├── dist/                       # Compiled JS output
+│   ├── logs/                       # Winston log files
+│   ├── .dockerignore
+│   ├── .env                        # Local environment variables
+│   ├── .sequelizerc                # Sequelize CLI paths
+│   ├── dockerfile
+│   ├── package.json
+│   └── tsconfig.json
+├── Fortend/                        # React frontend (Vite + TypeScript)
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── tracker/            # FilterSidebar, ApplicationCard, Modals…
+│   │   │   └── ui/                 # StatusPill, CompanyAvatar, TypeBadge…
+│   │   ├── pages/
+│   │   ├── config/                 # Axios API client
+│   │   ├── schemas/                # Zod validation schemas
+│   │   └── types/
+│   └── Dockerfile
+├── envirnoment/
+│   ├── .env.backend
+│   └── .env.postgres
+├── screenshot/                     # App screenshots
+├── docker-compose.yml
+└── readme.md
 ```
 
 ---
