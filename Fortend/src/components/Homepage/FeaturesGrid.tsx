@@ -1,12 +1,12 @@
+import type { ReactNode } from "react";
 import {
-  FaFilter,
   FaEdit,
-  FaTrashAlt,
+  FaFilter,
+  FaMobileAlt,
   FaSearch,
   FaStickyNote,
-  FaMobileAlt,
+  FaTrashAlt,
 } from "react-icons/fa";
-import { ReactNode } from "react";
 
 interface Feature {
   icon: ReactNode;

@@ -18,8 +18,8 @@ export default function TrustBar() {
         </p>
         <div className="relative overflow-hidden">
           {/* Fade edges */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#0f1629] to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0f1629] to-transparent z-10" />
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 bg-linear-to-r from-[#0f1629] to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 bg-linear-to-l from-[#0f1629] to-transparent z-10" />
 
           <div className="flex flex-wrap justify-center gap-3">
             {COMPANIES.map((name) => (

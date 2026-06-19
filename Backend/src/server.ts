@@ -48,7 +48,7 @@ app.use('/api/v1', v1Router);
 
 app.use(appErrorHandler);
 app.use(genericErrorHandler);
-// logger.info("fortend url => ", serverConfig.FORTEND_URL)
+logger.info("fortend url => ", serverConfig.FORTEND_URL)
 
 app.listen(serverConfig.PORT, async () => {
         await sequelize.authenticate();

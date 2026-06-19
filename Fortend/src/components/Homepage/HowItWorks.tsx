@@ -1,5 +1,5 @@
-import { FaPlusCircle, FaTasks, FaBell, FaTrophy } from "react-icons/fa";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import { FaBell, FaPlusCircle, FaTasks, FaTrophy } from "react-icons/fa";
 
 interface Step {
   icon: ReactNode;
@@ -62,7 +62,7 @@ export default function HowItWorks() {
         {/* Desktop: horizontal connector line */}
         <div className="hidden lg:grid lg:grid-cols-4 gap-6 relative">
           {/* Connector line */}
-          <div className="absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-blue-500/20 via-amber-500/20 to-emerald-500/20" />
+          <div className="absolute top-8 left-[12.5%] right-[12.5%] h-px bg-linear-to-r from-blue-500/20 via-amber-500/20 to-emerald-500/20" />
 
           {STEPS.map((s) => (
             <div key={s.step} className="flex flex-col items-center text-center gap-4 relative">
@@ -80,10 +80,10 @@ export default function HowItWorks() {
 
         {/* Mobile: vertical stack */}
         <div className="lg:hidden flex flex-col gap-6 relative">
-          <div className="absolute left-6 top-8 bottom-8 w-px bg-gradient-to-b from-blue-500/20 via-amber-500/20 to-emerald-500/20" />
+          <div className="absolute left-6 top-8 bottom-8 w-px bg-linear-to-b from-blue-500/20 via-amber-500/20 to-emerald-500/20" />
           {STEPS.map((s) => (
             <div key={s.step} className="flex items-start gap-5 pl-2">
-              <div className={`w-12 h-12 rounded-xl border flex items-center justify-center flex-shrink-0 ${s.iconBg} ${s.iconColor} z-10`}>
+              <div className={`w-12 h-12 rounded-xl border flex items-center justify-center shrink-0 ${s.iconBg} ${s.iconColor} z-10`}>
                 {s.icon}
               </div>
               <div className="pt-1">

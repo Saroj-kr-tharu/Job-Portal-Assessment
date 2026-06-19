@@ -1,5 +1,5 @@
-import { FaLaptopCode, FaChartBar, FaPaintBrush, FaDatabase, FaMobileAlt, FaCogs } from "react-icons/fa";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import { FaChartBar, FaCogs, FaDatabase, FaLaptopCode, FaMobileAlt, FaPaintBrush } from "react-icons/fa";
 
 interface JobCategory {
   icon: ReactNode;
@@ -82,7 +82,7 @@ export default function JobTypeShowcase() {
               className="group p-5 rounded-2xl border border-white/8 bg-white/3 hover:bg-white/5 hover:border-white/14 transition-all duration-200 cursor-default"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className={`w-9 h-9 rounded-xl border flex items-center justify-center flex-shrink-0 ${cat.iconBg} ${cat.iconColor}`}>
+                <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 ${cat.iconBg} ${cat.iconColor}`}>
                   {cat.icon}
                 </div>
                 <div>

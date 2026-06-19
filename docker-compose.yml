@@ -45,5 +45,27 @@ services:
         npx sequelize-cli db:seed:all --env development || true &&
         npm start
       "
-    
     restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./Fortend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+    container_name: frontend_service
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    env_file:
+      - ./envirnoment/.env.fortend
+    depends_on:
+      - backend_service
+    networks:
+      - JobPortal_net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s

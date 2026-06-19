@@ -22,7 +22,7 @@ loadEnv();
 
 export const serverConfig: ServerConfig = {
     PORT: Number(process.env.PORT) || 3001,
-    FORTEND_URL: String(process.env.FORTEND_URL) || 'http://localhost:5173/'
+    FORTEND_URL: String(process.env.FORTEND_URL) || 'http://localhost'
 };
 
 export const dbConfig: DBConfig = {

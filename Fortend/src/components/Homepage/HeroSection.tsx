@@ -15,7 +15,7 @@ export default function HeroSection({ onGetStarted }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden px-6 pt-20 pb-24 text-center">
       {/* Ambient glow blobs */}
-      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-blue-600/10 blur-[100px]" />
+      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-150 h-100 rounded-full bg-blue-600/10 blur-[100px]" />
       <div className="pointer-events-none absolute top-10 left-1/4 w-64 h-64 rounded-full bg-amber-500/5 blur-[80px]" />
 
       {/* Eyebrow badge */}
@@ -27,7 +27,7 @@ export default function HeroSection({ onGetStarted }: HeroSectionProps) {
       {/* Headline */}
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight max-w-3xl mx-auto">
         Track every application.{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-amber-400">
+        <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-amber-400">
           Land the right role.
         </span>
       </h1>
@@ -61,7 +61,7 @@ export default function HeroSection({ onGetStarted }: HeroSectionProps) {
               <span className={`text-xs font-semibold ${stage.color}`}>{stage.label}</span>
             </div>
             {i < PIPELINE_STAGES.length - 1 && (
-              <div className="w-8 h-px bg-gradient-to-r from-white/20 to-white/5 mx-1" />
+              <div className="w-8 h-px bg-linear-to-r from-white/20 to-white/5 mx-1" />
             )}
           </div>
         ))}
