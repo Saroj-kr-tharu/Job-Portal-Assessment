@@ -1,8 +1,8 @@
-import { FiX, FiCalendar, FiFileText, FiBriefcase } from "react-icons/fi";
+import { FiBriefcase, FiCalendar, FiFileText, FiX } from "react-icons/fi";
+import type { Application } from "../../types";
 import CompanyAvatar from "../ui/CompanyAvatar";
 import StatusPill from "../ui/StatusPill";
 import TypeBadge from "../ui/TypeBadge";
-import type { Application } from "../../types";
 
 interface Props {
   app: Application | null;
@@ -13,7 +13,7 @@ interface Props {
 function Row({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
     <div className="flex items-start gap-3 py-3 border-b border-[#2e3548] last:border-0">
-      <div className="w-8 h-8 rounded-[8px] bg-[#1e2330] border border-[#2e3548] flex items-center justify-center text-[#555f72] flex-shrink-0">
+      <div className="w-8 h-8 rounded-lg bg-[#1e2330] border border-[#2e3548] flex items-center justify-center text-[#555f72] shrink-0">
         {icon}
       </div>
       <div>
@@ -47,7 +47,7 @@ export default function ViewDrawer({ app, onClose, onEdit }: Props) {
         onClick={onClose}
       />
       {/* Drawer */}
-      <aside className="fixed right-0 top-0 h-full w-full max-w-sm bg-[#1a1f2e] border-l border-[#2e3548] z-50 flex flex-col shadow-2xl">
+      <aside className="fixed right-0 top-0 h-full w-full max-w-xs sm:max-w-md bg-[#1a1f2e] border-l border-[#2e3548] z-50 flex flex-col shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#2e3548]">
           <span className="text-[13px] font-semibold text-[#8892a4] uppercase tracking-wider">
@@ -55,7 +55,7 @@ export default function ViewDrawer({ app, onClose, onEdit }: Props) {
           </span>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-[8px] border border-[#2e3548] text-[#555f72] hover:bg-[#252b3b] hover:text-[#e8ecf4] transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-lg border border-[#2e3548] text-[#555f72] hover:bg-[#252b3b] hover:text-[#e8ecf4] transition-colors"
           >
             <FiX size={14} />
           </button>
@@ -79,7 +79,7 @@ export default function ViewDrawer({ app, onClose, onEdit }: Props) {
           </div>
 
           {/* Details rows */}
-          <div className="rounded-[12px] border border-[#2e3548] bg-[#252b3b] px-3 divide-y divide-[#2e3548]">
+          <div className="rounded-xl border border-[#2e3548] bg-[#252b3b] px-3 divide-y divide-[#2e3548]">
             <Row icon={<FiBriefcase size={14} />} label="Company" value={app.company_name} />
             <Row icon={<FiCalendar size={14} />} label="Applied on" value={formatDate(app.applied_date)} />
             {app.notes && (

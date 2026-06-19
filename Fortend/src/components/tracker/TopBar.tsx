@@ -1,4 +1,4 @@
-import { FiSearch, FiPlus } from "react-icons/fi";
+import { FiPlus, FiSearch } from "react-icons/fi";
 
 interface Props {
   search: string;
@@ -27,7 +27,7 @@ export default function TopBar({ search, onSearchChange, onAddNew }: Props) {
       {/* Add button */}
       <button
         onClick={onAddNew}
-        className="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-[#2e3548] bg-[#1e2330] text-[14px] font-medium text-[#e8ecf4] hover:bg-[#252b3b] hover:border-[#3d4760] transition-all duration-150 whitespace-nowrap flex-shrink-0"
+        className="flex hover:cursor-pointer items-center gap-2 px-4 py-2 rounded-[10px] border border-[#2e3548] bg-[#1e2330] text-[14px] font-medium text-[#e8ecf4] hover:bg-[#252b3b] hover:border-[#3d4760] transition-all duration-150 whitespace-nowrap shrink-0"
       >
         <FiPlus size={15} />
         Add Application

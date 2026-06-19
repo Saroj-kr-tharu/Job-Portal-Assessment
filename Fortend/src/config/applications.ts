@@ -10,11 +10,30 @@ export interface GetApplicationsParams {
   search?: string;
 }
 
-export const getApplications = async (params: GetApplicationsParams = {}): Promise<Application[]> => {
+
+export interface GetApplicationsParams {
+  status?: string;
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface PaginatedResponse {
+  applications: Application[];
+  pagination: {
+    total: number;
+    totalPages: number | null;
+    hasNext: boolean;
+    hasPrev: boolean;
+  };
+}
+
+export const getApplications = async (params: GetApplicationsParams = {}): Promise<PaginatedResponse> => {
   const { data } = await api.get("/applications", { params });
-  // console.log("log => ", data.data.applications)
-  return data.data.applications;
+  return data.data; 
 };
+
+
 
 export const getApplication = async (id: number): Promise<Application> => {
   const { data } = await api.get(`/applications/${id}`);

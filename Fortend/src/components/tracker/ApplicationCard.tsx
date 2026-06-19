@@ -1,10 +1,9 @@
-import { FiEye, FiEdit2, FiTrash2 } from "react-icons/fi";
-import { FiCalendar, FiMapPin, FiFileText } from "react-icons/fi";
+import { FiCalendar, FiEdit2, FiEye, FiFileText, FiMapPin, FiTrash2 } from "react-icons/fi";
+import type { Application } from "../../types";
 import CompanyAvatar from "../ui/CompanyAvatar";
+import IconButton from "../ui/IconButton";
 import StatusPill from "../ui/StatusPill";
 import TypeBadge from "../ui/TypeBadge";
-import IconButton from "../ui/IconButton";
-import type { Application } from "../../types";
 
 interface Props {
   app: Application;
@@ -31,7 +30,7 @@ function truncate(str: string, n: number) {
 
 export default function ApplicationCard({ app, onView, onEdit, onDelete }: Props) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3.5 rounded-card border border-[#2e3548] bg-[#252b3b] hover:bg-[#2a3145] hover:border-[#3d4760] transition-all duration-150 group">
+    <div onClick={() => onView(app)} className="flex items-center gap-3 px-4 py-3.5 rounded-card border border-[#2e3548] bg-[#252b3b] hover:bg-[#2a3145] hover:border-[#3d4760] hover:cursor-pointer hover:scale-101 transition-all duration-150 group">
       {/* Avatar */}
       <CompanyAvatar name={app.company_name} />
 
@@ -39,7 +38,7 @@ export default function ApplicationCard({ app, onView, onEdit, onDelete }: Props
       <div className="flex-1 min-w-0">
         {/* Row 1: title + type */}
         <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-          <span className="text-[15px] font-semibold text-[#e8ecf4] truncate max-w-[180px] sm:max-w-[260px]">
+          <span className="text-[15px] font-semibold text-[#e8ecf4] truncate max-w-45 sm:max-w-65">
             {app.job_title}
           </span>
           <TypeBadge type={app.job_type} />
@@ -56,7 +55,7 @@ export default function ApplicationCard({ app, onView, onEdit, onDelete }: Props
             {formatDate(app.applied_date)}
           </span>
           {app.notes && (
-            <span className="flex items-center gap-1 text-[12px] text-[#8892a4] max-w-[140px] truncate">
+            <span className="flex items-center gap-1 text-[12px] text-[#8892a4] max-w-35 truncate">
               <FiFileText size={11} className="text-[#555f72]" />
               {truncate(app.notes, 20)}
             </span>
@@ -65,16 +64,16 @@ export default function ApplicationCard({ app, onView, onEdit, onDelete }: Props
       </div>
 
       {/* Status pill */}
-      <div className="flex-shrink-0 hidden sm:block">
+      <div className="shrink-0 hidden sm:block">
         <StatusPill status={app.status} />
       </div>
 
       {/* Action buttons */}
-      <div className="flex items-center gap-1.5 flex-shrink-0">
+      <div className="flex items-center gap-1.5 shrink-0">
         <div className="sm:hidden mr-1">
           <StatusPill status={app.status} size="sm" />
         </div>
-        <IconButton icon={<FiEye size={14} />} label="View" onClick={() => onView(app)} />
+        <IconButton  icon={<FiEye size={14} />} label="View" onClick={() => onView(app)} />
         <IconButton icon={<FiEdit2 size={14} />} label="Edit" onClick={() => onEdit(app)} />
         <IconButton
           icon={<FiTrash2 size={14} />}

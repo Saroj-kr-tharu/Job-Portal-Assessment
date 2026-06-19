@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface Props {
   icon: ReactNode;
@@ -16,8 +16,8 @@ export default function IconButton({ icon, label, onClick, variant = "default" }
     <button
       title={label}
       aria-label={label}
-      onClick={onClick}
-      className={`w-8 h-8 flex items-center justify-center rounded-[8px] border border-[#2e3548] text-[#555f72] transition-all duration-150 ${hover} flex-shrink-0`}
+      onClick={(e) => { e.stopPropagation(); onClick(); }}
+      className={`w-8 h-8 flex items-center hover:cursor-pointer justify-center rounded-lg border border-[#2e3548] text-[#555f72] transition-all duration-150 ${hover} shrink-0`}
     >
       {icon}
     </button>

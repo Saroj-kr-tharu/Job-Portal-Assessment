@@ -35,7 +35,7 @@ export default function CompanyAvatar({ name, size = "md" }: Props) {
   const dim = size === "sm" ? "w-9 h-9 text-xs" : "w-11 h-11 text-sm";
   return (
     <div
-      className={`${dim} rounded-[10px] border border-white/10 flex items-center justify-center font-bold flex-shrink-0 ${color.bg} ${color.text}`}
+      className={`${dim} rounded-[10px] border border-white/10 flex items-center justify-center font-bold shrink-0 ${color.bg} ${color.text}`}
     >
       {getInitials(name)}
     </div>

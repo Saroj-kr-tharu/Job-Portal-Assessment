@@ -1,6 +1,6 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { applicationSchema, type ApplicationSchema } from "../schemas/application";
 import type { Application } from "../types";
 
@@ -54,7 +54,7 @@ export default function ApplicationForm({ defaultValues, onSubmit, onCancel, isL
           </label>
           <input
             {...register("company_name")}
-            placeholder="e.g. Stripe"
+            placeholder="e.g. Khalti"
             className={`input input-bordered w-full ${errors.company_name ? "input-error" : ""}`}
           />
           {errors.company_name && (
@@ -132,7 +132,7 @@ export default function ApplicationForm({ defaultValues, onSubmit, onCancel, isL
       </div>
 
       <div className="flex justify-end gap-2 pt-2">
-        <button type="button" className="btn btn-ghost" onClick={onCancel} disabled={isLoading}>
+        <button type="button" className="btn btn-ghost " onClick={onCancel} disabled={isLoading}>
           Cancel
         </button>
         <button type="submit" className="btn btn-primary" disabled={isLoading}>

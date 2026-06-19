@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
+import toast from "react-hot-toast";
 import {
   createApplication,
   deleteApplication,
@@ -18,27 +19,47 @@ import StatsBar from "../components/tracker/StatsBar";
 import TopBar from "../components/tracker/TopBar";
 import ViewDrawer from "../components/tracker/ViewDrawer";
 
+const LIMIT_OPTIONS = [5, 10, 20, 50];
+
 export default function TrackerPage() {
   const queryClient = useQueryClient();
 
   const [filterStatus, setFilterStatus] = useState<Status | "All">("All");
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [modalOpen, setModalOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<Application | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Application | null>(null);
   const [viewTarget, setViewTarget] = useState<Application | null>(null);
 
-  const { data: applications = [], isLoading, isError } = useQuery({
-    queryKey: ["applications"],
-    queryFn: () => getApplications(),
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["applications", page, limit],
+    queryFn: () => {
+      const toastId = toast.loading("Loading applications…");
+      return getApplications({ page, limit })
+        .then((res) => {
+          toast.success("Applications loaded", { id: toastId });
+          return res;
+        })
+        .catch((err) => {
+          toast.error("Failed to load applications", { id: toastId });
+          throw err;
+        });
+    },
   });
+
+  const applications = data?.applications ?? [];
+  const pagination = data?.pagination;
 
   const createMutation = useMutation({
     mutationFn: createApplication,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["applications"] });
       setModalOpen(false);
+      toast.success("Application added!");
     },
+    onError: () => toast.error("Failed to add application."),
   });
 
   const updateMutation = useMutation({
@@ -48,7 +69,9 @@ export default function TrackerPage() {
       queryClient.invalidateQueries({ queryKey: ["applications"] });
       setModalOpen(false);
       setEditTarget(null);
+      toast.success("Application updated!");
     },
+    onError: () => toast.error("Failed to update application."),
   });
 
   const deleteMutation = useMutation({
@@ -56,7 +79,9 @@ export default function TrackerPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["applications"] });
       setDeleteTarget(null);
+      toast.success("Application deleted.");
     },
+    onError: () => toast.error("Failed to delete application."),
   });
 
   const filtered = useMemo(() => {
@@ -70,6 +95,21 @@ export default function TrackerPage() {
       return matchStatus && matchSearch;
     });
   }, [applications, filterStatus, search]);
+
+  const handleFilterChange = (status: Status | "All") => {
+    setFilterStatus(status);
+    setPage(1);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    setPage(1);
+  };
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   const handleSubmit = (data: ApplicationSchema) => {
     if (editTarget) {
@@ -98,32 +138,28 @@ export default function TrackerPage() {
         <FilterSidebar
           activeFilter={filterStatus}
           applications={applications}
-          onFilterChange={setFilterStatus}
+          onFilterChange={handleFilterChange}
         />
       </div>
 
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* TopBar */}
         <TopBar
           search={search}
-          onSearchChange={setSearch}
+          onSearchChange={handleSearchChange}
           onAddNew={handleAddNew}
         />
 
-        {/* Mobile filter bar */}
         <MobileFilterBar
           activeFilter={filterStatus}
           applications={applications}
-          onFilterChange={setFilterStatus}
+          onFilterChange={handleFilterChange}
         />
 
-        {/* Stats */}
         {!isLoading && !isError && (
           <StatsBar applications={applications} />
         )}
 
-        {/* Application list */}
         <div className="flex-1 overflow-y-auto scrollbar-thin">
           <ApplicationList
             applications={filtered}
@@ -135,6 +171,50 @@ export default function TrackerPage() {
             hasFilters={hasFilters}
           />
         </div>
+
+        {/* Pagination bar */}
+        {!isLoading && !isError && pagination && (
+          <div className="flex items-center justify-between px-4 py-3 border-t border-[#2e3548] bg-[#1e2330] shrink-0">
+            {/* Left: total + limit picker */}
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-gray-400">
+                {pagination.total} application{pagination.total !== 1 ? "s" : ""}
+              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm text-gray-500">Show</span>
+                <select
+                  value={limit}
+                  onChange={(e) => handleLimitChange(Number(e.target.value))}
+                  className="text-sm bg-[#2e3548] text-gray-300 border border-[#3a4259] rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+                >
+                  {LIMIT_OPTIONS.map((opt) => (
+                    <option key={opt} value={opt}>{opt}</option>
+                  ))}
+                </select>
+                <span className="text-sm text-gray-500">per page</span>
+              </div>
+            </div>
+
+            {/* Right: prev / page / next */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setPage((p) => p - 1)}
+                disabled={!pagination.hasPrev}
+                className="px-3 py-1.5 text-sm rounded-md bg-[#2e3548] text-gray-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#3a4259]  hover:cursor-pointer transition-colors"
+              >
+                ← Prev
+              </button>
+              <span className="text-sm text-gray-400 px-1">Page {page}</span>
+              <button
+                onClick={() => setPage((p) => p + 1)}
+                disabled={!pagination.hasNext}
+                className="px-3 py-1.5 text-sm rounded-md bg-[#2e3548] text-gray-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#3a4259] transition-colors hover:cursor-pointer"
+              >
+                Next →
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Modals */}

@@ -1,6 +1,6 @@
-import ApplicationForm from "./ApplicationForm";
-import type { Application } from "../types";
 import type { ApplicationSchema } from "../schemas/application";
+import type { Application } from "../types";
+import ApplicationForm from "./ApplicationForm";
 
 interface Props {
   isOpen: boolean;

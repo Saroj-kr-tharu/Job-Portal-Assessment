@@ -35,5 +35,4 @@ export const STATUS_CONFIG: Record<
 };
 
 export const ALL_STATUSES: Status[] = ["Applied", "Interviewing", "Offer", "Rejected"];
-
 export const JOB_TYPES = ["Internship", "Full-time", "Part-time"] as const;

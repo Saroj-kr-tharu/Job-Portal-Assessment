@@ -1,4 +1,4 @@
-import { STATUS_CONFIG, ALL_STATUSES } from "../../constants/design";
+import { ALL_STATUSES, STATUS_CONFIG } from "../../constants/design";
 import type { Application, Status } from "../../types";
 
 interface Props {
@@ -20,7 +20,7 @@ function FilterItem({ label, count, isActive, dot, onClick }: FilterItemProps) {
     <button
       onClick={onClick}
       className={`
-        w-full flex items-center gap-3 px-4 py-2.5 rounded-[10px] border text-left transition-all duration-150
+        w-full hover:cursor-pointer flex items-center gap-3 px-4 py-2.5 rounded-[10px] border text-left transition-all duration-150
         ${isActive
           ? "border-[#2563eb]/40 bg-[#1a3a5c]/40 text-[#60a5fa]"
           : "border-[#2e3548] bg-transparent text-[#8892a4] hover:bg-[#252b3b] hover:text-[#e8ecf4]"
@@ -28,13 +28,13 @@ function FilterItem({ label, count, isActive, dot, onClick }: FilterItemProps) {
       `}
     >
       {dot ? (
-        <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${dot}`} />
+        <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${dot}`} />
       ) : (
-        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0 bg-[#555f72]" />
+        <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#555f72]" />
       )}
       <span className="flex-1 text-[14px] font-medium">{label}</span>
       <span
-        className={`text-[12px] px-2 py-0.5 rounded-[6px] font-medium ${
+        className={`text-[12px] px-2 py-0.5 rounded-md font-medium ${
           isActive ? "bg-[#1a3a5c] text-[#60a5fa]" : "bg-[#252b3b] text-[#555f72]"
         }`}
       >
@@ -48,8 +48,8 @@ export default function FilterSidebar({ activeFilter, applications, onFilterChan
   const countOf = (status: Status) => applications.filter((a) => a.status === status).length;
 
   return (
-    <aside className="w-[220px] flex-shrink-0 flex flex-col gap-2 px-3 py-4">
-      <p className="text-[11px] font-semibold tracking-[0.1em] text-[#555f72] uppercase px-1 mb-1">
+    <aside className="w-55 shrink-0 flex flex-col gap-2 px-3 py-4">
+      <p className="text-[11px] font-semibold tracking-widest text-[#555f72] uppercase px-1 mb-1">
         Filter
       </p>
 
